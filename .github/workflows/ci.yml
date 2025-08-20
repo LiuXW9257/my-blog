@@ -16,19 +16,22 @@ jobs:
         with:
           fetch-depth: 0 # 获取完整的历史记录以便正确生成最后更新时间
           
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2 # 添加pnpm安装步骤
+        with:
+          version: 8 # 指定pnpm版本，可以根据需要调整
+          
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18 # 使用Node.js 18版本
-          cache: 'npm' # 缓存npm依赖，如果使用pnpm，请改为'pnpm'
+          cache: 'pnpm' # 使用pnpm缓存
           
       - name: Install dependencies
-        # 如果使用pnpm，请将此行改为：run: pnpm install --frozen-lockfile
-        run: npm ci # 使用ci命令安装依赖，更加严格和可靠
+        run: pnpm install --frozen-lockfile # 使用pnpm安装依赖
         
       - name: Build with VitePress
-        # 如果使用pnpm，请将此行改为：run: pnpm run docs:build
-        run: npm run docs:build
+        run: pnpm run docs:build # 使用pnpm运行构建命令
         
       # 设置SSH密钥
       - name: Setup SSH
