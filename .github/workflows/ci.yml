@@ -44,6 +44,10 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts # 引用存储在GitHub Secrets中的服务器IP
+
+      # 测试SSH连接
+      - name: Test SSH connection
+        run: ssh -v ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "echo 'SSH连接成功'"
           
       # 部署到服务器
       - name: Deploy to server
