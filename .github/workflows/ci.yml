@@ -1,0 +1,52 @@
+# 工作流名称
+name: Deploy VitePress site to Server
+
+# 触发条件：在main分支push时触发
+on:
+  push:
+    branches: [main]
+
+jobs:
+  # 构建和部署工作
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 获取完整的历史记录以便正确生成最后更新时间
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18 # 使用Node.js 18版本
+          cache: 'npm' # 缓存npm依赖，如果使用pnpm，请改为'pnpm'
+          
+      - name: Install dependencies
+        # 如果使用pnpm，请将此行改为：run: pnpm install --frozen-lockfile
+        run: npm ci # 使用ci命令安装依赖，更加严格和可靠
+        
+      - name: Build with VitePress
+        # 如果使用pnpm，请将此行改为：run: pnpm run docs:build
+        run: npm run docs:build
+        
+      # 设置SSH密钥
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }} # 引用存储在GitHub Secrets中的SSH私钥
+          
+      # 添加服务器到已知主机
+      - name: Add known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts # 引用存储在GitHub Secrets中的服务器IP
+          
+      # 部署到服务器
+      - name: Deploy to server
+        run: |
+          # 使用rsync将构建后的文件同步到服务器
+          rsync -avz --delete docs/.vitepress/dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:${{ secrets.BLOG_SERVER_PATH }}
+          
+          # 可选：在服务器上执行一些命令（如重启服务等）
+          # ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd ${{ secrets.BLOG_SERVER_PATH }} && some-command"
