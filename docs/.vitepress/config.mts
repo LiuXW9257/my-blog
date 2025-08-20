@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "my-blog",
+  title: "newsboy's blog",
   description: "newsboy's blog",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
