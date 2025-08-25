@@ -1,4 +1,4 @@
-## 单文件组件
+# 单文件组件
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'

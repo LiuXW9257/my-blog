@@ -1,4 +1,4 @@
-## shallowRef
+# shallowRef
 >  `ref` 默认是深层的 `track`，`shallowRef`是一个浅层的 `track`，只会对 `.value` 的修改进行 `trigger`，如果是对  `.value.xxx` 的修改是不会触发 `trigger` 的
 
 

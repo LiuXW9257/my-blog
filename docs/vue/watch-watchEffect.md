@@ -1,7 +1,7 @@
-## 侦听变化
+# 侦听变化
 > `watchEffect`、`watch`
 
-### watchEffect
+## watchEffect
 
 ```ts
 const { stop, pause, resume } = watchEffect(() => {})
@@ -16,7 +16,7 @@ resume()
 stop()
 ```
 
-#### 副作用清理
+### 副作用清理
 ```ts
 watchEffect(async (onClearup) => {
   const { resp, cancel } = await doSomething()
@@ -28,12 +28,12 @@ watchEffect(async (onClearup) => {
 `onClearup` 会在下一次`effect`执行前被调用
 :::
 
-### watch
+## watch
 :::tip
 `watch` 是懒侦听，他只会在侦听的数据源发生变化的时候才会调用，和回调函数用到了哪些数据无关
 :::
 
-#### watch 的数据源包含三种形式
+### watch 的数据源包含三种形式
 ```ts
 function watch<T>(
   sources: WatchSource<T>[],
@@ -54,7 +54,7 @@ type WatchSource<T> =
 - ...或是由以上类型的值组成的数组
 :::
 
-#### watch 的回调函数
+### watch 的回调函数
 ```ts
 watch(source, (newValue, oldValue, onCleanup) => { })
 ```
@@ -62,7 +62,7 @@ watch(source, (newValue, oldValue, onCleanup) => { })
 当source是一个数组的时候，`newValue`和`oldValue`都是数组
 :::
 
-#### options
+### options
 
 ```ts
 interface WatchOptions extends WatchEffectOptions {
@@ -115,7 +115,7 @@ resume()
 stop()
 ``` 
 
-### 同步清理函数
+## 同步清理函数
 ```ts
 function onWatcherCleanup(
   cleanupFn: () => void,

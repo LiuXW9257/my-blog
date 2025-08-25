@@ -24,9 +24,10 @@ export default defineConfig({
         items: [
           { text: 'SFC 单文件组件', link: '/vue/sfc' },
           { text: '虚拟 DOM', link: '/vue/virtual-dom' },
-          { text: 'shallowRef', link: '/vue/shallow-ref' },
+          { text: 'shallowRef', link: '/vue/shallowRef' },
           { text: '计算属性', link: '/vue/computed' },
           { text: '侦听', link: '/vue/watch-watchEffect' },
+          { text: 'customRef', link: '/vue/customRef' },
         ]
       },
     ],
