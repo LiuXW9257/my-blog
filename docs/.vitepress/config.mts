@@ -18,7 +18,17 @@ export default defineConfig({
           { text: 'Markdown Examples', link: '/markdown-examples' },
           { text: 'Runtime API Examples', link: '/api-examples' }
         ]
-      }
+      },
+      {
+        text: 'vue-study',
+        items: [
+          { text: 'SFC 单文件组件', link: '/vue/sfc' },
+          { text: '虚拟 DOM', link: '/vue/virtual-dom' },
+          { text: 'shallowRef', link: '/vue/shallow-ref' },
+          { text: '计算属性', link: '/vue/computed' },
+          { text: '侦听', link: '/vue/watch-watchEffect' },
+        ]
+      },
     ],
 
     socialLinks: [
